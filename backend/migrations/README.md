@@ -1,15 +1,15 @@
-# ERP Schema Migrations
+# EcoSphere Schema Migrations
 
-Use the SQL file in this directory as the initial local PostgreSQL schema baseline for the EcoMerge ERP ESG platform.
+Use the SQL file in this directory as the initial local PostgreSQL schema baseline for EcoSphere.
 
-## Apply schema
+## Apply Schema
 
 ```bash
-docker compose -f backend/docker-compose.yml up -d
-psql postgresql://postgres:postgres@localhost:5432/ecomerge -f backend/migrations/001_create_erp_schema.sql
+docker compose up -d
+psql postgresql://postgres:postgres@localhost:5432/ecosphere -f backend/migrations/001_create_erp_schema.sql
 ```
 
-## Seed data
+## Seed Data
 
 ```bash
 cd backend
