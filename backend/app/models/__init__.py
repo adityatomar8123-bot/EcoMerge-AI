@@ -1,0 +1,15 @@
+from app.models.erp_models import (  # noqa: F401
+    Audit,
+    Badge,
+    CarbonEntry,
+    Challenge,
+    ChallengeCompletion,
+    ComplianceIssue,
+    Department,
+    Notification,
+    Policy,
+    PolicyAcknowledgement,
+    Report,
+    Reward,
+    User,
+)
