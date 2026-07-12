@@ -16,10 +16,11 @@ EcoSphere is built using a modern decoupled architecture optimized for both high
 graph TD
     A[Next.js 15 Frontend] -->|Relative API Calls /api/*| B[FastAPI Backend]
     B -->|Automatic Detection| C{Database Router}
-    C -->|If DATABASE_URL set| D[(PostgreSQL / MySQL)]
-    C -->|Zero-Config Fallback| E[(SQLite: backend/app/db/ecosphere.db)]
-    E -->|Container Sync| F[/tmp/ecosphere.db Serverless /tmp]
+    C -->|If DATABASE_URL set| D[("PostgreSQL / MySQL")]
+    C -->|Zero-Config Fallback| E[("SQLite: backend/app/db/ecosphere.db")]
+    E -->|Container Sync| F["/tmp/ecosphere.db (Serverless /tmp)"]
 ```
+
 
 ### 1. Database & Seeding Strategy
 - **Dialect Auto-Detection**: Refactored [session.py](backend/app/db/session.py) to automatically connect to high-availability PostgreSQL or MySQL when configured.
