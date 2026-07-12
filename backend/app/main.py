@@ -10,7 +10,7 @@ from app.api.routes.notifications import router as notifications_router
 from app.api.routes.reports import router as reports_router
 from app.core.config import settings
 
-app = FastAPI(title="EcoMerge ERP ESG Platform", version="0.1.0")
+app = FastAPI(title="EcoSphere ESG Management Platform", version="0.1.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -34,6 +34,6 @@ app.include_router(ai_router, prefix="/api")
 def health_check():
     return {
         "status": "ok",
-        "service": "EcoMerge ERP ESG Platform",
+        "service": "EcoSphere ESG Management Platform",
         "version": "0.1.0",
     }
