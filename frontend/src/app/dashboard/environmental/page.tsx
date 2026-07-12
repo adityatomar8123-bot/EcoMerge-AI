@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiService } from "@/lib/api";
 import { 
@@ -73,8 +73,8 @@ export default function EnvironmentalPage() {
     queryFn: () => apiService.getDepartments(),
   });
 
-  const deptList = Array.isArray(departments) ? departments : [];
-  const entriesList = Array.isArray(dbEntries) ? dbEntries : [];
+  const deptList = useMemo(() => Array.isArray(departments) ? departments : [], [departments]);
+  const entriesList = useMemo(() => Array.isArray(dbEntries) ? dbEntries : [], [dbEntries]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filterScope, setFilterScope] = useState("All");
@@ -90,7 +90,8 @@ export default function EnvironmentalPage() {
     if (deptList.length > 0 && !newDept) {
       setNewDept(deptList[0].name);
     }
-  }, [deptList, newDept]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deptList]);
 
   useEffect(() => {
     if (!isLoading && !entriesLoading) {
