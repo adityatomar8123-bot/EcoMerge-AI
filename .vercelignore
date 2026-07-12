@@ -1,0 +1,7 @@
+# Ignore raw datasets in Vercel function bundling to prevent exceeding maximum bundle size (500MB)
+Datasets/
+frontend/node_modules/
+backend/.venv/
+.venv/
+ecosphere.db-journal
+*.db-journal
