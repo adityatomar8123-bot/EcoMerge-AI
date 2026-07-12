@@ -13,7 +13,8 @@ import {
   MdPsychology, 
   MdLogout,
   MdMenu,
-  MdClose
+  MdClose,
+  MdSettings
 } from "react-icons/md";
 import Lenis from "lenis";
 import { gsap } from "gsap";
@@ -83,6 +84,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     { name: "Gamification", path: "/dashboard/gamification", icon: <MdEmojiEvents size={20} /> },
     { name: "Reports Builder", path: "/dashboard/reports", icon: <MdAnalytics size={20} /> },
     { name: "AI ESG Advisor", path: "/dashboard/ai-assistant", icon: <MdPsychology size={20} /> },
+    { name: "Settings & Admin", path: "/dashboard/settings", icon: <MdSettings size={20} /> },
   ];
 
   const handleLogout = () => {
