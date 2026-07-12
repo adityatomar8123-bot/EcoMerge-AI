@@ -21,28 +21,28 @@ def seed() -> None:
     session.add_all(
         [
             User(
-                email="admin@ecomerge.local",
+                email="admin@ecosphere.local",
                 password_hash="admin123",
                 role="admin",
                 full_name="Admin User",
                 department_id=departments[0].id,
             ),
             User(
-                email="manager@ecomerge.local",
+                email="manager@ecosphere.local",
                 password_hash="manager123",
                 role="manager",
                 full_name="Manager User",
                 department_id=departments[1].id,
             ),
             User(
-                email="employee@ecomerge.local",
+                email="employee@ecosphere.local",
                 password_hash="employee123",
                 role="employee",
                 full_name="Employee User",
                 department_id=departments[1].id,
             ),
             User(
-                email="auditor@ecomerge.local",
+                email="auditor@ecosphere.local",
                 password_hash="auditor123",
                 role="auditor",
                 full_name="Auditor User",
