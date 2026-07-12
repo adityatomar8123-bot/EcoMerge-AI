@@ -58,6 +58,7 @@ else:
     )
 
 
+@app.get("/api/health")
 @app.get("/health")
 def health_check():
     if init_error:
