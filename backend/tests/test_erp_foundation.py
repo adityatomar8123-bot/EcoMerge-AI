@@ -17,7 +17,7 @@ def test_root_health_endpoint():
 def test_login_returns_jwt_for_admin_seed_user():
     response = client.post(
         "/api/auth/login",
-        json={"email": "admin@ecomerge.local", "password": "admin123"},
+        json={"email": "admin@ecosphere.local", "password": "admin123"},
     )
     assert response.status_code == 200
     payload = response.json()
