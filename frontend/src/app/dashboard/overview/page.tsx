@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { apiService } from "@/lib/api";
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
@@ -38,6 +39,8 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 export default function OverviewPage() {
+  const router = useRouter();
+  const [timeRange, setTimeRange] = useState("6M");
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { data: dashboard, isLoading: dashLoading, error: dashError } = useQuery({
@@ -170,7 +173,10 @@ export default function OverviewPage() {
         
         <div className="flex items-center gap-3 self-start md:self-auto">
           {/* Quick Action Button */}
-          <button className="hidden sm:flex items-center gap-2 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06] hover:border-white/10 px-4 py-2 transition-all duration-300 hover-lift group">
+          <button 
+            onClick={() => router.push("/dashboard/environmental")}
+            className="hidden sm:flex items-center gap-2 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06] hover:border-white/10 px-4 py-2 transition-all duration-300 hover-lift group cursor-pointer"
+          >
             <MdAdd size={16} className="text-emerald-400 group-hover:rotate-90 transition-transform duration-300" />
             <span className="text-[12px] font-semibold text-slate-200">New Initiative</span>
           </button>
@@ -337,10 +343,16 @@ export default function OverviewPage() {
               <p className="text-[12px] text-slate-400 font-medium mt-1">Monthly kgCO2e trajectory vs targets</p>
             </div>
             <div className="flex gap-1.5 bg-white/[0.02] p-1 rounded-xl border border-white/[0.04]">
-              {["1W", "1M", "6M", "1Y"].map((t, i) => (
-                <button key={t} className={`px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all cursor-pointer
-                  ${i === 2 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]' : 'text-slate-500 hover:text-slate-300 hover:bg-white/[0.04] border border-transparent'}
-                `}>{t}</button>
+              {["1W", "1M", "6M", "1Y"].map((t) => (
+                <button 
+                  key={t} 
+                  onClick={() => setTimeRange(t)}
+                  className={`px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all cursor-pointer
+                    ${timeRange === t ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]' : 'text-slate-500 hover:text-slate-300 hover:bg-white/[0.04] border border-transparent'}
+                  `}
+                >
+                  {t}
+                </button>
               ))}
             </div>
           </div>
@@ -425,12 +437,16 @@ export default function OverviewPage() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             {[
-              { title: "Export Report", icon: <MdFileDownload size={18} />, color: "from-emerald-500/20 to-emerald-500/5", text: "text-emerald-400" },
-              { title: "Log Emissions", icon: <MdTrackChanges size={18} />, color: "from-cyan-500/20 to-cyan-500/5", text: "text-cyan-400" },
-              { title: "New Challenge", icon: <MdEmojiEvents size={18} />, color: "from-violet-500/20 to-violet-500/5", text: "text-violet-400" },
-              { title: "Review Alerts", icon: <MdNotificationsActive size={18} />, color: "from-amber-500/20 to-amber-500/5", text: "text-amber-400" },
+              { title: "Export Report", icon: <MdFileDownload size={18} />, color: "from-emerald-500/20 to-emerald-500/5", text: "text-emerald-400", path: "/dashboard/reports" },
+              { title: "Log Emissions", icon: <MdTrackChanges size={18} />, color: "from-cyan-500/20 to-cyan-500/5", text: "text-cyan-400", path: "/dashboard/environmental" },
+              { title: "New Challenge", icon: <MdEmojiEvents size={18} />, color: "from-violet-500/20 to-violet-500/5", text: "text-violet-400", path: "/dashboard/gamification" },
+              { title: "Review Alerts", icon: <MdNotificationsActive size={18} />, color: "from-amber-500/20 to-amber-500/5", text: "text-amber-400", path: "/dashboard/governance" },
             ].map((action, i) => (
-              <button key={i} className="flex flex-col items-center justify-center gap-3 p-4 rounded-2xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.04] hover:border-white/[0.08] transition-all duration-300 hover:-translate-y-1">
+              <button 
+                key={i} 
+                onClick={() => router.push(action.path)}
+                className="flex flex-col items-center justify-center gap-3 p-4 rounded-2xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.04] hover:border-white/[0.08] transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+              >
                 <div className={`p-3 rounded-xl bg-gradient-to-br ${action.color} ${action.text}`}>
                   {action.icon}
                 </div>
@@ -447,7 +463,10 @@ export default function OverviewPage() {
               <h3 className="text-[15px] font-bold text-white">Top Contributors</h3>
               <p className="text-[12px] text-slate-400 font-medium mt-1">Employee sustainability leaderboard</p>
             </div>
-            <button className="flex items-center gap-1 text-[11px] text-emerald-400/80 font-bold hover:text-emerald-400 hover:bg-emerald-400/10 px-2 py-1 rounded-lg transition-all cursor-pointer">
+            <button 
+              onClick={() => router.push("/dashboard/gamification")}
+              className="flex items-center gap-1 text-[11px] text-emerald-400/80 font-bold hover:text-emerald-400 hover:bg-emerald-400/10 px-2 py-1 rounded-lg transition-all cursor-pointer"
+            >
               <span>View All</span>
               <MdArrowForward size={14} />
             </button>
@@ -502,10 +521,14 @@ export default function OverviewPage() {
           </div>
           <div className="space-y-3 flex-1">
             {[
-              { title: "Hybrid Shift Optimization", desc: "Reduce Scope 3 commute emissions", color: "emerald", progress: 68, icon: "🌿" },
-              { title: "ESG Compliance Audit", desc: "Mandatory HR policy reviews", color: "violet", progress: 84, icon: "📋" },
+              { title: "Hybrid Shift Optimization", desc: "Reduce Scope 3 commute emissions", color: "emerald", progress: 68, icon: "🌿", path: "/dashboard/environmental" },
+              { title: "ESG Compliance Audit", desc: "Mandatory HR policy reviews", color: "violet", progress: 84, icon: "📋", path: "/dashboard/governance" },
             ].map((item, idx) => (
-              <div key={idx} className="rounded-2xl border border-white/[0.04] bg-white/[0.02] p-4 hover:bg-white/[0.05] hover:border-white/[0.1] transition-all duration-300 group hover:-translate-y-0.5">
+              <div 
+                key={idx} 
+                onClick={() => router.push(item.path)}
+                className="rounded-2xl border border-white/[0.04] bg-white/[0.02] p-4 hover:bg-white/[0.05] hover:border-white/[0.1] transition-all duration-300 group hover:-translate-y-0.5 cursor-pointer"
+              >
                 <div className="flex items-start gap-3.5">
                   <div className="h-10 w-10 rounded-xl bg-white/[0.05] flex items-center justify-center text-lg border border-white/[0.05] shadow-sm">
                     {item.icon}

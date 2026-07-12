@@ -86,7 +86,10 @@ export default function GamificationPage() {
     );
   }
 
-  const mappedChallenges = dbChallenges.map((c: any) => {
+  const challengeList = Array.isArray(dbChallenges) ? dbChallenges : [];
+  const rewardList = Array.isArray(dbRewards) ? dbRewards : [];
+
+  const mappedChallenges = challengeList.map((c: any) => {
     return {
       id: c.id,
       title: c.title,
@@ -98,7 +101,7 @@ export default function GamificationPage() {
     };
   });
 
-  const mappedRewards = dbRewards.map((r: any) => {
+  const mappedRewards = rewardList.map((r: any) => {
     let icon = <MdOutlineEnergySavingsLeaf size={24} />;
     if (r.title.includes("Donation")) icon = <MdCardGiftcard size={24} />;
     if (r.title.includes("PTO") || r.title.includes("Day")) icon = <MdWorkspacePremium size={24} />;

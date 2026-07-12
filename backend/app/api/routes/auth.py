@@ -58,6 +58,12 @@ def register(payload: RegisterRequest, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_user)
 
+    try:
+        from app.core.mail import send_welcome_email
+        send_welcome_email(new_user.email, new_user.full_name)
+    except Exception as e:
+        print(f"Error sending welcome email: {e}")
+
     token = create_access_token(subject=new_user.email, role=new_user.role)
     return {
         "access_token": token,

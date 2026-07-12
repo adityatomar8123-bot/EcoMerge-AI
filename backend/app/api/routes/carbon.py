@@ -115,6 +115,20 @@ def create_carbon_entry(payload: dict, db: Session = Depends(get_db), current_us
 
     db.commit()
     db.refresh(entry)
+
+    try:
+        from app.core.mail import send_carbon_entry_email
+        send_carbon_entry_email(
+            to_email=current_user.email,
+            full_name=current_user.full_name,
+            activity_type=entry.activity_type,
+            quantity=float(entry.quantity),
+            unit=entry.unit,
+            kgco2e=float(entry.kgco2e)
+        )
+    except Exception as e:
+        print(f"Error sending carbon entry email: {e}")
+
     return entry
 
 

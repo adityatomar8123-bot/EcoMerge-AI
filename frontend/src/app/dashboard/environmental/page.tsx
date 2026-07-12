@@ -84,10 +84,11 @@ export default function EnvironmentalPage() {
   const [newEvidence, setNewEvidence] = useState("");
 
   useEffect(() => {
-    if (departments.length > 0 && !newDept) {
-      setNewDept(departments[0].name);
+    const deptList = Array.isArray(departments) ? departments : [];
+    if (deptList.length > 0 && !newDept) {
+      setNewDept(deptList[0].name);
     }
-  }, [departments]);
+  }, [departments, newDept]);
 
   useEffect(() => {
     if (!isLoading && !entriesLoading) {
@@ -139,8 +140,11 @@ export default function EnvironmentalPage() {
 
 
 
-  const mappedEntries = dbEntries.map((e: any) => {
-    const dept = departments.find((d: any) => d.id === e.department_id);
+  const deptList = Array.isArray(departments) ? departments : [];
+  const entriesList = Array.isArray(dbEntries) ? dbEntries : [];
+
+  const mappedEntries = entriesList.map((e: any) => {
+    const dept = deptList.find((d: any) => d.id === e.department_id);
     return {
       id: e.id,
       department: dept ? dept.name : "Operations",

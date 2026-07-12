@@ -61,7 +61,8 @@ export default function SocialPage() {
   const [newStatus, setNewStatus] = useState<"Completed" | "In Progress" | "Scheduled">("Scheduled");
 
   useEffect(() => {
-    const csrCats = categories.filter((c: any) => c.type === "csr");
+    const catList = Array.isArray(categories) ? categories : [];
+    const csrCats = catList.filter((c: any) => c.type === "csr");
     if (csrCats.length > 0 && (!newCategory || !csrCats.some((c: any) => c.name === newCategory))) {
       setNewCategory(csrCats[0].name);
     }
@@ -107,7 +108,8 @@ export default function SocialPage() {
   const handleAddActivity = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newTitle || !newHours || !newRate) { messageApi.error("Please fill in all required fields"); return; }
-    const catObj = categories.find((c: any) => c.name === newCategory);
+    const catList = Array.isArray(categories) ? categories : [];
+    const catObj = catList.find((c: any) => c.name === newCategory);
     addActivityMutation.mutate({
       title: newTitle,
       category_id: catObj ? catObj.id : undefined,
@@ -135,8 +137,11 @@ export default function SocialPage() {
     );
   }
 
-  const mappedActivities = dbActivities.map((act: any) => {
-    const cat = categories.find((c: any) => c.id === act.category_id);
+  const catListForMapping = Array.isArray(categories) ? categories : [];
+  const activityList = Array.isArray(dbActivities) ? dbActivities : [];
+
+  const mappedActivities = activityList.map((act: any) => {
+    const cat = catListForMapping.find((c: any) => c.id === act.category_id);
     return {
       id: act.id,
       title: act.title,
