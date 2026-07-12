@@ -1,37 +1,44 @@
 # Python
 __pycache__/
 *.py[cod]
-*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 
 # Virtual environments
+.venv/
 venv/
 env/
 
-# IDE
-.vscode/
-.idea/
-
-# Environment files
-.env
-.env.history
-
-# System files
-.DS_Store
-Thumbs.db
-
-# Node modules (if any)
+# Node
 node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/.turbo/
 
-# Claude specific
-.claude/
+# Environment and local secrets
+.env
+.env.*
+!.env.example
+!backend/.env.example
+!frontend/.env.example
 
-# Backend outputs and uploads
-backend/outputs/
-backend/nul
+# Generated and local runtime artifacts
+logs/
+outputs/
 uploads/
+backend/outputs/
+backend/logs/
+*.log
+*.tmp
 *.pdf
 
-# Frontend build
-ESG-demo-main/frontend/.next/
-ESG-demo-main/frontend/out/
-ESG-demo-main/frontend/build/
+# System and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.claude/
