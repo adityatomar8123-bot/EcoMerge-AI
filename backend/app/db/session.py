@@ -26,25 +26,53 @@ try:
 except Exception as e:
     logger.warning(f"Failed to connect to primary database: {e}. Falling back to SQLite local database.")
     
-    # Resolve the absolute path of ecosphere.db inside backend/app/
+    # 1. Start with the default expected location: backend/app/db/ecosphere.db
     local_db_path = Path(__file__).resolve().parent / "ecosphere.db"
     
+    # 2. Traverse up and search recursively if the file isn't found at the default path
+    if not local_db_path.exists():
+        logger.info(f"DB not found at default: {local_db_path}. Searching parent directories...")
+        search_dir = Path(__file__).resolve().parent
+        found = False
+        # Search up to 5 levels up for any 'ecosphere.db'
+        for i in range(5):
+            # Check direct candidate: search_dir / "ecosphere.db"
+            candidate = search_dir / "ecosphere.db"
+            if candidate.exists():
+                local_db_path = candidate
+                found = True
+                logger.info(f"Found DB at candidate path: {local_db_path}")
+                break
+            
+            # Check nested candidates
+            for sub in ["backend/app/db/ecosphere.db", "app/db/ecosphere.db"]:
+                candidate_nested = search_dir / sub
+                if candidate_nested.exists():
+                    local_db_path = candidate_nested
+                    found = True
+                    logger.info(f"Found DB at nested candidate path: {local_db_path}")
+                    break
+            
+            if found:
+                break
+            search_dir = search_dir.parent
+            
+    # 3. Handle serverless environment copy or normal local path
     if is_serverless:
-        # Vercel filesystem is read-only, copy seeded DB to /tmp
         tmp_db_path = "/tmp/ecosphere.db"
         if not os.path.exists(tmp_db_path):
             if local_db_path.exists():
                 shutil.copy2(local_db_path, tmp_db_path)
-                logger.info(f"Seeded SQLite DB copied to {tmp_db_path}")
+                logger.info(f"Seeded SQLite DB successfully copied from {local_db_path} to {tmp_db_path}")
             else:
-                logger.warning(f"Seeded SQLite DB not found at {local_db_path}. Creating empty DB at {tmp_db_path}.")
+                logger.error(f"CRITICAL: Seeded SQLite DB not found anywhere! Looked up to parent dirs. Creating empty DB at {tmp_db_path}")
         else:
             logger.info(f"Using existing SQLite DB at {tmp_db_path}")
             
         database_url = f"sqlite:///{tmp_db_path}"
     else:
-        # Local development uses absolute path to backend/app/ecosphere.db
         database_url = f"sqlite:///{local_db_path}"
+        logger.info(f"Connecting to local SQLite DB at: {local_db_path}")
         
     engine = create_engine(database_url, future=True, connect_args={"check_same_thread": False})
 
