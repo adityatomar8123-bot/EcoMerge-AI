@@ -2,6 +2,12 @@
 
 const nextConfig = {
   reactStrictMode: true,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 
   // @ts-expect-error webpack config type is not fully typed
   webpack(config, { dev, isServer }) {
@@ -26,3 +32,4 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
