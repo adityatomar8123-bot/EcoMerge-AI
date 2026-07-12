@@ -124,13 +124,9 @@
     min-height: 100vh;
     margin: 0;
     padding: 0;
- main
-    font-family: var(--font-sans);
-
-    font-family: Inter, sans-serif;
+    font-family: var(--font-sans), Inter, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
- main
   }
 }
 

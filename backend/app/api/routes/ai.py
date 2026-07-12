@@ -16,7 +16,7 @@ logger = logging.getLogger("uvicorn.error")
 
 router = APIRouter(prefix="/ai", tags=["ai"])
 
-AI_API_KEY = os.getenv("AI_API_KEY", "a32f4aeebc004d45a39b0dee497b1fad.Tj2RqQ38rnHdZ5uTTvgD_hnv")
+AI_API_KEY = os.getenv("AI_API_KEY", "")
 
 
 def _gather_esg_context(db: Session) -> str:
