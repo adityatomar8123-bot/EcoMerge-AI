@@ -1,17 +1,26 @@
 # EcoSphere Database Guide
 
-EcoSphere uses PostgreSQL locally as the authoritative relational data store.
+EcoSphere uses local PostgreSQL as the authoritative store for ERP-style ESG records.
 
-## Database strategy
+## Local Database
 
-- Local containerized PostgreSQL via Docker Compose
-- SQLAlchemy ORM models for the backend foundation
-- UUID primary keys for entity identity
-- Role and department-based data ownership
+- Host: `localhost`
+- Port: `5432`
+- Database: `ecosphere`
+- User: `postgres`
+- Password: `postgres`
+- SQLAlchemy URL: `postgresql+psycopg2://postgres:postgres@localhost:5432/ecosphere`
 
-## Core entities
+Start it from the repository root:
 
-The initial schema baseline supports the following business objects:
+```bash
+docker compose up -d
+```
+
+## Core Tables
+
+The baseline schema covers:
+
 - departments
 - users
 - policies
@@ -26,36 +35,11 @@ The initial schema baseline supports the following business objects:
 - challenges
 - challenge completions
 
-## Rationale
+## Schema Assets
 
-The schema is intentionally organized around ERP-style operational records:
-- departments act as organizational units
-- users hold business roles and accountability
-- carbon entries represent environmental transactions
-- policies and audits support governance control
-- rewards and challenges enable engagement and motivation
+- `backend/migrations/001_create_erp_schema.sql`
+- `backend/seeds/seed_erp.py`
 
-## Startup command
+## Data Model Principle
 
-```bash
-docker compose -f backend/docker-compose.yml up -d
-```
-
-## Schema baseline
-
-The current initial baseline is:
-- backend/migrations/001_create_erp_schema.sql
-
-## Seed data
-
-A seed script creates the default role hierarchy and sample organization records:
-- backend/seeds/seed_erp.py
-
-## Local access
-
-The default local PostgreSQL connection target is:
-- host: localhost
-- port: 5432
-- database: ecomerge
-- user: postgres
-- password: postgres
+ESG activity is treated as operational data. Departments own work, users act within roles, carbon entries capture environmental transactions, policies and audits capture governance controls, and rewards/challenges support employee engagement.
