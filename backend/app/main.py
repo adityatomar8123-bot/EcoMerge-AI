@@ -2,12 +2,13 @@ import sys
 import traceback
 from pathlib import Path
 
-# Inject path
+# Inject backend directory into Python path for Vercel serverless resolution
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+# Catch initialization errors so the health endpoint can report them
 init_error = None
 try:
     from app.api.routes.ai import router as ai_router
@@ -22,10 +23,15 @@ try:
     from app.api.routes.gamification import router as gamification_router
     from app.api.routes.settings import router as settings_router
     from app.core.config import settings
-except Exception as e:
+
+    # Auto-create tables on startup (handles empty /tmp/ecosphere.db)
+    from app.db.session import engine
+    from app.db.base import Base
+    Base.metadata.create_all(bind=engine)
+except Exception:
     init_error = traceback.format_exc()
 
-app = FastAPI(title="EcoSphere ESG Management Platform", version="0.1.0")
+app = FastAPI(title="EcoSphere ESG Management Platform", version="1.0.0")
 
 if init_error is None:
     app.add_middleware(
@@ -48,7 +54,6 @@ if init_error is None:
     app.include_router(settings_router, prefix="/api")
     app.include_router(ai_router, prefix="/api")
 else:
-    # If initialization failed, still run CORS so frontend can receive the error
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],
@@ -65,10 +70,10 @@ def health_check():
         return {
             "status": "error",
             "message": "Initialization failed",
-            "traceback": init_error
+            "traceback": init_error,
         }
     return {
         "status": "ok",
         "service": "EcoSphere ESG Management Platform",
-        "version": "0.1.0",
+        "version": "1.0.0",
     }
