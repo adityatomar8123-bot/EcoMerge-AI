@@ -40,7 +40,7 @@ def carbon_summary(db: Session = Depends(get_db)):
         for goal in active_goals:
             if goal.target_co2 > 0:
                 # If target is reduction, progress is (current reduction / target reduction)
-                pct = (goal.current_co2 / goal.target_co2) * 100.0
+                pct = (float(goal.current_co2) / float(goal.target_co2)) * 100.0
                 total_progress += min(100.0, max(0.0, pct))
         progress = round(total_progress / len(active_goals), 1)
     else:

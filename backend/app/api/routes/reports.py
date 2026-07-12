@@ -22,7 +22,7 @@ router = APIRouter(prefix="/reports", tags=["reports"])
 @router.get("/esg")
 def get_esg_report(db: Session = Depends(get_db)):
     # Calculate key metrics from DB to present a summary
-    carbon_total = db.query(func.sum(CarbonEntry.kgco2e)).scalar() or 0.0
+    carbon_total = float(db.query(func.sum(CarbonEntry.kgco2e)).scalar() or 0.0)
     csr_count = db.query(CSRActivity).count()
     completed_challenges = db.query(ChallengeCompletion).count()
     policy_count = db.query(Policy).count()

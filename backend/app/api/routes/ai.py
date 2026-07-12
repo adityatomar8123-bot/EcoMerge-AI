@@ -22,7 +22,7 @@ AI_API_KEY = os.getenv("AI_API_KEY", "")
 def _gather_esg_context(db: Session) -> str:
     """Gather real ESG data from the database to feed as context to the LLM."""
     # Carbon data
-    total_carbon = db.query(func.sum(CarbonEntry.kgco2e)).scalar() or 0.0
+    total_carbon = float(db.query(func.sum(CarbonEntry.kgco2e)).scalar() or 0.0)
     carbon_count = db.query(CarbonEntry).count()
     
     # Social data
@@ -184,7 +184,7 @@ Provide a detailed, actionable ESG recommendation based on the data above."""
 @router.get("/advisor/quick")
 def quick_insights(db: Session = Depends(get_db)):
     """Return quick ESG insights for dashboard widgets."""
-    total_carbon = db.query(func.sum(CarbonEntry.kgco2e)).scalar() or 0.0
+    total_carbon = float(db.query(func.sum(CarbonEntry.kgco2e)).scalar() or 0.0)
     open_issues = db.query(ComplianceIssue).filter(ComplianceIssue.status == "open").count()
     
     return {
