@@ -1,19 +1,14 @@
+from sqlalchemy.orm import Session
 from app.core.security import create_access_token
-from app.core.rbac import Role
-
-seed_users = {
-    "admin@ecosphere.local": {"password": "admin123", "role": Role.ADMIN.value},
-    "manager@ecosphere.local": {"password": "manager123", "role": Role.MANAGER.value},
-    "employee@ecosphere.local": {"password": "employee123", "role": Role.EMPLOYEE.value},
-    "auditor@ecosphere.local": {"password": "auditor123", "role": Role.AUDITOR.value},
-}
+from app.models.erp_models import User
 
 
 class AuthService:
     @staticmethod
-    def authenticate(email: str, password: str) -> tuple[str, str] | None:
-        user = seed_users.get(email.lower())
-        if not user or user["password"] != password:
+    def authenticate(db: Session, email: str, password: str) -> tuple[str, str] | None:
+        user = db.query(User).filter(User.email == email.lower()).first()
+        if not user or user.password_hash != password:
             return None
-        token = create_access_token(subject=email.lower(), role=user["role"])
-        return token, user["role"]
+        token = create_access_token(subject=user.email, role=user.role)
+        return token, user.role
+

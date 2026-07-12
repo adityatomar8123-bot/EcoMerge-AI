@@ -8,6 +8,9 @@ from app.api.routes.department import router as department_router
 from app.api.routes.governance import router as governance_router
 from app.api.routes.notifications import router as notifications_router
 from app.api.routes.reports import router as reports_router
+from app.api.routes.social import router as social_router
+from app.api.routes.gamification import router as gamification_router
+from app.api.routes.settings import router as settings_router
 from app.core.config import settings
 
 app = FastAPI(title="EcoSphere ESG Management Platform", version="0.1.0")
@@ -24,9 +27,12 @@ app.include_router(auth_router, prefix="/api")
 app.include_router(dashboard_router, prefix="/api")
 app.include_router(department_router, prefix="/api")
 app.include_router(carbon_router, prefix="/api")
+app.include_router(social_router, prefix="/api")
 app.include_router(governance_router, prefix="/api")
+app.include_router(gamification_router, prefix="/api")
 app.include_router(notifications_router, prefix="/api")
 app.include_router(reports_router, prefix="/api")
+app.include_router(settings_router, prefix="/api")
 app.include_router(ai_router, prefix="/api")
 
 
