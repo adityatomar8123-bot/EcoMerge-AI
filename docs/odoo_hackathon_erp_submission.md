@@ -1,46 +1,36 @@
-# EcoSphere — Odoo Hackathon 2026 Submission Brief
+# EcoSphere Odoo Hackathon Submission Brief
 
-EcoSphere is the repository’s rewritten product identity: a local-first ERP-style ESG management platform designed to feel like a credible operational product for the Odoo Hackathon, not a research-only report-analysis demo.
+EcoSphere is a local-first ERP-style ESG management platform for organizations that need operational control over ESG work.
 
-## Product positioning
+## Submission Positioning
 
-EcoSphere focuses on the business workflows that an ESG operations team needs every day:
-- department and user governance
-- carbon and operational ESG recording
-- policy and compliance management
-- audit workflows and issue ownership
-- report generation and dashboard visibility
-- lightweight AI advisory layered on top of the business data
+EcoSphere helps teams:
 
-## Why this submission fits
+- manage departments, users, and roles
+- track carbon activity across scopes
+- coordinate CSR and social activities
+- maintain governance policies and acknowledgements
+- review audit and compliance issues
+- motivate participation through rewards and challenges
+- generate ESG reports and operational exports
 
-- The frontend already uses Next.js, TypeScript, Tailwind, and a dashboard-driven UI pattern.
-- The backend already uses FastAPI and a modular route structure.
-- PostgreSQL is the default local database runtime through Docker Compose.
-- Authentication and RBAC are already defined for admin, manager, employee, and auditor roles.
-- AI remains optional and supportive, rather than the center of the product.
+## Technical Fit
 
-## Reference docs
+- Local PostgreSQL database
+- Local FastAPI backend
+- JWT authentication
+- Role-based access control
+- Next.js frontend with responsive dashboards
+- Configurable API base URL
 
-This submission is supported by the following documentation set:
-- architecture.md — system architecture and deployment shape
-- database.md — relational model and PostgreSQL schema
-- api.md — endpoint map and role boundaries
-- feature-mapping.md — module-to-business-flow alignment
-- ui-screens.md — dashboard and workflow screens
-- roadmap.md — implementation phases
-- setup.md — runbook for local development
-- legacy.md — historical notes preserved for traceability
+## Demo Flow
 
-## MVP flow
+1. Admin signs in with seeded credentials.
+2. Dashboard shows ESG score, carbon trend, alerts, and challenges.
+3. Manager reviews department performance and CSR progress.
+4. Auditor reviews policies and compliance issues.
+5. Reports panel shows stakeholder-ready export options.
 
-1. Admin or manager creates departments and users.
-2. Employees log ESG actions and evidence.
-3. The system aggregates carbon, governance, and performance metrics.
-4. Auditors review issues and policy acknowledgements.
-5. Dashboards and exports surface business status for stakeholders.
-6. AI suggestions are advisory, not the main decision engine.
+## Delivery Goal
 
-## Deliverable goal
-
-The Odoo submission should read as an ergonomic, real-world ESG ERP product with strong local-data ownership, clean role separation, and a business-ready dashboard story.
+The submission should feel like a compact ESG ERP suite: practical, local-first, role-aware, and immediately demoable.
