@@ -7,6 +7,7 @@ import { message } from "antd";
 import { gsap } from "gsap";
 import Image from "next/image";
 import EulerLogo from "@/assets/Euler-Img.svg";
+import Link from "next/link";
 
 type AuthMode = "login" | "register";
 
@@ -352,6 +353,18 @@ export default function LoginPage() {
               ? "Don't have an account? Create one"
               : "Already have an account? Sign in"}
           </button>
+        </div>
+
+        <div className="mt-4 text-center">
+          <Link
+            href="/"
+            className="text-xs text-slate-500 hover:text-emerald-400 transition inline-flex items-center gap-1.5"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Home
+          </Link>
         </div>
 
         {/* ----- Sandbox Quick-Logins ----- */}

@@ -194,7 +194,7 @@ export default function HomePage() {
       <section className="relative z-10 mx-auto max-w-7xl px-6 pt-10">
         <ContainerScroll
           titleComponent={
-            <LampContainer className="-mt-20">
+            <LampContainer className="-mt-32">
               <motion.h1 
                 initial={{ opacity: 0.5, y: 100 }}
                 whileInView={{ opacity: 1, y: 0 }}
