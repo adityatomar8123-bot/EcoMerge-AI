@@ -1,56 +1,57 @@
 # EcoSphere API Overview
 
-The API is the operational gateway for the EcoSphere platform. It is intentionally lean and business-focused.
+The FastAPI backend exposes a lean local API for the EcoSphere frontend and hackathon demo.
 
 ## Authentication
 
-### POST /api/auth/login
-Log in with a seeded local account and receive a JWT access token.
+`POST /api/auth/login`
 
-Roles supported by the foundation:
-- admin
-- manager
-- employee
-- auditor
+Returns a JWT for seeded local users. Roles are `admin`, `manager`, `employee`, and `auditor`.
 
-## Dashboard endpoints
+## Dashboard
 
-- GET /api/dashboard/overview
-- Returns high-level ESG score, department scores, carbon trend, notifications, and active challenge data.
+`GET /api/dashboard/overview`
 
-## Department endpoints
+Returns ESG score, department scores, carbon trend data, notification count, active challenge count, and leaderboard entries.
 
-- GET /api/departments
-- Returns department master data for the current organization structure.
+## Departments
 
-## Carbon endpoints
+`GET /api/departments`
 
-- GET /api/carbon/summary
-- Returns emissions totals and scope-based summary values.
+Returns department master data used by workflow and reporting screens.
 
-## Governance endpoints
+## Carbon
 
-- GET /api/governance/policies
-- Returns active policy records and governance metadata.
+`GET /api/carbon/summary`
 
-## Notifications and reports
+Returns total emissions, scope 1/2/3 values, and target progress.
 
-- GET /api/notifications
-- GET /api/reports/esg
+## Governance
 
-These endpoints are intended to support day-to-day operational visibility and reporting.
+`GET /api/governance/policies`
 
-## AI advisory endpoints
+Returns active policy records and governance metadata for acknowledgements and audits.
 
-- POST /api/ai/advisor
+## Notifications
 
-This endpoint is treated as a lightweight advisory layer, not the central product workflow.
+`GET /api/notifications`
 
-## Health check
+Returns operational alerts for policy, audit, carbon, and workflow reminders.
 
-- GET /health
-- Returns a service status payload for the live FastAPI instance.
+## Reports
 
-## Product expectation
+`GET /api/reports/esg`
 
-The API should remain clear, secure, and role-aware. The product story is operational ERP behavior, not a heavy research-agent surface.
+Returns report metadata and export format availability.
+
+## AI Advisory
+
+`POST /api/ai/advisor`
+
+Reserved for lightweight ESG recommendations based on ERP records. This is not the primary workflow.
+
+## Health
+
+`GET /health`
+
+Returns service status and version metadata.
