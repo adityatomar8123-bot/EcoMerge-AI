@@ -381,7 +381,7 @@ export default function OverviewPage() {
                   strokeWidth={3} 
                   fill="url(#areaGradient)"
                   dot={{ fill: "#0c0e16", r: 4, strokeWidth: 2, stroke: "#34d399" }} 
-                  activeDot={{ r: 6, strokeWidth: 3, stroke: "#10b981", fill: "#fff", shadowBlur: 10, shadowColor: "#10b981" }}
+                  activeDot={{ r: 6, strokeWidth: 3, stroke: "#10b981", fill: "#fff" }}
                 />
               </AreaChart>
             </ResponsiveContainer>
