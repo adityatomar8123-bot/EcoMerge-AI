@@ -1,47 +1,42 @@
 # EcoSphere Feature Mapping
 
-This page maps the product’s feature set to the ERP-style business workflows it is meant to support.
+EcoSphere maps hackathon requirements to concrete ERP-style ESG workflows.
 
-## Core ERP modules
+## Environmental
 
-### Environmental
-- carbon tracking
-- emissions summaries
-- emissions evidence handling
-- environmental dashboard visibility
+- Carbon summary dashboard
+- Scope 1, 2, and 3 tracking
+- Evidence-ready emissions records
+- Department-level environmental visibility
 
-### Social
-- employee participation indicators
-- team engagement activity
-- CSR-aligned activity tracking
-- learning and training support objects
+## Social and CSR
 
-### Governance
-- ESG policies
-- policy acknowledgements
-- audit intake and review
-- compliance issue ownership
+- CSR activities by owner and department
+- Employee participation indicators
+- Training and safety activity tracking
+- Team challenges and engagement signals
 
-### Gamification
-- badges
-- rewards
-- challenges
-- leaderboard-style participation signals
+## Governance
 
-### Reporting and notifications
-- report generation metadata
-- operational notifications
-- summary exports and stakeholder communication
+- ESG policy register
+- Policy acknowledgement workflow
+- Audit review queue
+- Compliance issue ownership and due dates
 
-## Business rule direction
+## Gamification
 
-The product is shaped around rules such as:
-- clear ownership for compliance issues
-- evidence requirements for ESG actions
-- department-level scoring and visibility
-- role-aware access to information
-- advisor-generated insight on top of real organizational records
+- Badges
+- Rewards
+- Challenges
+- Leaderboard-style participation
 
-## Why this matters for the hackathon
+## Reporting
 
-The submission story is strongest when every major screen and endpoint is mapped to a concrete business workflow, not a generic AI demo pipeline.
+- ESG board pack metadata
+- Carbon activity export
+- Audit evidence register
+- Notifications for overdue work
+
+## Hackathon Fit
+
+The product demonstrates local data ownership, role-aware workflows, and a clean operational dashboard rather than a cloud-dependent prototype.
